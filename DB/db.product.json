@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "name": "Acrylic Paint Set",
+    "price": 89.9,
+    "stock": 25
+  },
+  {
+    "id": 2,
+    "name": "Canvas 40x50 cm",
+    "price": 34.5,
+    "stock": 40
+  },
+  {
+    "id": 3,
+    "name": "Professional Paint Brushes Set",
+    "price": 129.0,
+    "stock": 18
+  },
+  {
+    "id": 4,
+    "name": "Sketchbook A4",
+    "price": 42.9,
+    "stock": 30
+  },
+  {
+    "id": 5,
+    "name": "Colored Pencils 48 Pack",
+    "price": 79.9,
+    "stock": 22
+  },
+  {
+    "id": 6,
+    "name": "Watercolor Paint Set",
+    "price": 99.9,
+    "stock": 15
+  },
+  {
+    "id": 7,
+    "name": "Palette Knife Set",
+    "price": 54.9,
+    "stock": 12
+  },
+  {
+    "id": 8,
+    "name": "Wooden Easel",
+    "price": 249.9,
+    "stock": 8
+  },
+  {
+    "id": 9,
+    "name": "Drawing Pencil Set",
+    "price": 59.9,
+    "stock": 35
+  },
+  {
+    "id": 10,
+    "name": "Canvas Panel 30x40 cm",
+    "price": 27.9,
+    "stock": 50
+  }
+]
