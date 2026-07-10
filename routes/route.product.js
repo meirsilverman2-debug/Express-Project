@@ -3,9 +3,6 @@ import { readFromJson } from "../service/service.file.js";
 
 const router = express.Router()
 
-
-
-
 // for testing the  URL path
 // const products = [
 //   {
@@ -41,38 +38,39 @@ router.get("/", async(req, res) => {
 
     let  productsSendToClient = products
 
-    if (inStock){
+    
+    // console.log(typeof +maxPrice === "number");
+    
+
+    if (inStock && inStock === "true"){
         console.log("inStock")
         const productsInStock = productsSendToClient.filter((product) => {return product.stock > 0})
         productsSendToClient = productsInStock 
         }
 
-    if (maxPrice && typeof maxPrice === Number){
+    if (maxPrice && typeof +maxPrice === "number"){
         console.log("maxPrice")
-        const productsInBudget = productsSendToClient.filter((product) => {return product.price <= maxPrice}) 
+        const productsInBudget = productsSendToClient.filter((product) => {return product.price <= +maxPrice}) 
         productsSendToClient = productsInBudget
         }
 
     if (search) {
         console.log("search")
-        // console.log(typeof search)
-        // console.log(search)
-        // console.log(productsSendToClient[3].name)
-        // console.log(productsSendToClient[3] === search)
         const productsName = productsSendToClient.filter((product) => {return product.name.toLowerCase() === search.toLowerCase()})
         console.log(productsName)
         productsSendToClient = productsName
         }
 
     if( productsSendToClient.length === 0 ){ 
-        return res.status(404).json({err: "Not found!"})
+        return res.status(404).json({success: false, message: "Not found!"})
 
-    } else if (productsSendToClient.length !== 0 ){
+    } else if (productsSendToClient.length !== products.length ){
         return res.json(productsSendToClient);
     }
     
     console.log(Object.keys(req.query).length === 0)
     if (Object.keys(req.query).length === 0){
+        console.log("ll object")
         return res.json(productsSendToClient)
     }
 
