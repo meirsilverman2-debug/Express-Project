@@ -23,8 +23,6 @@ router.get("/", async (req, res) => {
 });
 
 
-
-
 // The seconde cart route that add a product to a specific customer cart only if they exsit and the only if the product is available in stock:
 router.post("/items", async (req, res) => {
 
@@ -66,18 +64,61 @@ router.post("/items", async (req, res) => {
             await writeToJson(`${DB_BASE_PATH}/db.customer.json`, customers);
             return res.status(200).json({ success: true, data: req.body });
 
-        // if the product does not in the cart of the customer yet.    
+            // if the product does not in the cart of the customer yet.    
         } else if (!isItIncludeInTheCart) {
 
             customer.cart.push({ productId: product.id, quantity: +quantity });
             await writeToJson(`${DB_BASE_PATH}/db.customer.json`, customers);
             return res.status(200).json({ success: true, data: req.body });
 
-        }} else {
+        }
+    } else {
         return res.status(400).json({ success: false, message: "ERROR: not a valid path oh nooo you got lost" });
     };
 });
 
+
+// The third endpoint of the cart route to delete a product that been added to a specific customer cart:
+router.delete("/items/:productId", async (req, res) => {
+    console.log("DELETE/items/:productId");
+
+    const customers = await readFromJson(`${DB_BASE_PATH}/db.customer.json`);
+    const products = await readFromJson(`${DB_BASE_PATH}/db.product.json`)
+
+    const { productId } = req.params;
+    const { customerId } = req.body;
+
+    if (productId && !isNaN(+productId) && customerId && !isNaN(+customerId)) {
+        console.log("got both param and the query yay!");
+
+        const customer = customers.find((customer) => customer.customerId === +customerId);
+        const product = products.find((product) => product.id === +productId);
+
+        if (!customer || !product) return res.status(404).json({ success: false, message: "one or more require data are not founs in our system" });
+        console.log("productID:", typeof productId);
+        console.log("cart:", customer.cart);
+
+        console.log(customer.cart[0].productId);
+
+
+        const isItIncludeInTheCart = customer.cart.find((item) => item.productId === +productId);
+        console.log(isItIncludeInTheCart);
+
+        if (isItIncludeInTheCart) {
+            const filteredCart = customer.cart.filter((item) => item.productId !== +productId);
+            customer.cart = filteredCart;
+            await writeToJson(`${DB_BASE_PATH}/db.customer.json`, customers);
+
+            // Status 204 for successful delete does not contain any body in it I saw it in the exercises that we did but you still have to end it with res.end if not postman will still have to think about it:
+            return res.status(204).end();
+
+        } else if (!isItIncludeInTheCart) {
+            return res.status(404).json({ success: false, message: `The customer does not hold this product inside his cart so you cannot remove something that does not exsit in the cart yet` });
+        }
+    } else {
+        return res.status(404).json({ success: false, message: "This pathe does not exsit you got lost please call 911" });
+    };
+});
 
 
 
