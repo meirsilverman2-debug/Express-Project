@@ -120,20 +120,4 @@ router.delete("/items/:productId", async (req, res) => {
     };
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 export default router;

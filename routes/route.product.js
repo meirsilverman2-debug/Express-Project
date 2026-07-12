@@ -3,27 +3,6 @@ import { readFromJson } from "../service/service.file.js";
 
 const router = express.Router()
 
-// for testing the  URL path
-// const products = [
-//   {
-//     "id": 1,
-//     "name": "Acrylic Paint Set",
-//     "price": 89.9,
-//     "stock": 25
-//   },
-//   {
-//     "id": 2,
-//     "name": "Canvas 40x50 cm",
-//     "price": 34.5,
-//     "stock": 40
-//   },
-//   {
-//     "id": 3,
-//     "name": "Professional Paint Brushes Set",
-//     "price": 129.0,
-//     "stock": 18
-//   },]
-
 const DB_BASE_PATH = process.env.DB_BASE_PATH
 
 router.get("/", async(req, res) => {
