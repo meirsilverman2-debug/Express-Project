@@ -11,7 +11,7 @@ router.get("/", async(req, res) => {
     const {customerId} = req.query;
     const customers = await readFromJson(`${DB_BASE_PATH}/db.customer.json`);
 
-    if(customerId && typeof +customerId === "number"){
+    if(customerId && !isNaN(+customerId)){
         const customer = customers.find((customer) => customer.customerId === +customerId)
 
         if (!customer) return res.status(404).json({success: false, message: "ERROR customer is not found in our system please try again"})

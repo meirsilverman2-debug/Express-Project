@@ -20,7 +20,7 @@ app.use("/health", healthRouter);
 app.use("/orders", ordersRouter);
 app.use("/products", productRouter);
 
-app.get("/", (req, res) => {
+app.use("/", (req, res) => {
     console.log("Hello to the ART online store");
     res.send("Hello to the ART online store we are so happy to see you again 😆");
 });
